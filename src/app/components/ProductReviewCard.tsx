@@ -10,7 +10,7 @@ interface ProductReviewCardProps {
 
 const ProductReviewCard: React.FC<ProductReviewCardProps> = ({ color, name, date, icon}) => {
   return (
-    <div style={{ backgroundColor: color }} className='w-[17.94rem] h-[10.5rem] rounded-[21px] p-6 flex flex-col gap-8 cursor-pointer group-hover:blur-sm hover:!blur-none group-hover:scale-[0.85] hover:!scale-100 duration-500'>
+    <div style={{ backgroundColor: color }} className='w-[17.94rem] h-[10.5rem] rounded-[21px] p-6 flex flex-col gap-8 cursor-pointer group-hover:blur-sm hover:!blur-none group-hover:scale-[0.85] hover:!scale-100 duration-500 min-w-fit'>
      <div className='flex justify-between items-center'>
         <Image src={icon} alt={name} width={30.8} height={34.75} />
         <Image src='/images/more_icon.svg' alt='dropdown icon' width={24} height={24} />

@@ -1,14 +1,14 @@
 import React from "react";
-import { useState } from 'react'
+import { useState } from "react";
 
 function DateNav() {
-    const [selectedDay, setSelectedDay] = useState('Today')
+  const [selectedDay, setSelectedDay] = useState("Today");
 
   const handleDayClick = (day: string) => {
-    setSelectedDay(day)
-  }
+    setSelectedDay(day);
+  };
   return (
-    <div className="flex font-semibold text-[1rem] leading-[1.17rem] gap-8 mt-8">
+    <div className="flex font-semibold text-[1rem] leading-[1.17rem] gap-8 ">
       <p
         onClick={() => handleDayClick("Today")}
         className={`cursor-pointer pb-1 relative ${

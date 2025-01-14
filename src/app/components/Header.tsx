@@ -5,7 +5,7 @@ import { Search } from 'lucide-react'
 
 function Header() {
   return (
-    <header className="flex gap-6 flex-col md:flex-row md:gap-0 justify-between px-4 lg:px-8 font-raleway items-center text-[#5f5f5f] ">
+    <header className="flex gap-6 flex-col sm:flex-row md:gap-0 justify-between px-4 lg:px-8 font-raleway items-center text-[#5f5f5f] bg-white py-6">
       <h1 className="text-[2rem] font-bold leading-[2.35rem] ">My Notes</h1>
       <div className="w-[16.44rem] h-[2.69rem] relative">
         <input

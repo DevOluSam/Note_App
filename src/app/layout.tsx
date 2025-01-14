@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, Raleway } from "next/font/google";
 import "./globals.css";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
+import ReduxProvider from "./ReduxProvider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,15 +35,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${raleway.variable} antialiased`}
       >
-        <div className="flex pt-8">
-          <div>
+        <div className="flex px-2">
+          <div className="hidden lg:block">
             <Sidebar />
           </div>
           <div className="w-full">
-            <div>
+            <div className="sticky top-0 z-20">
               <Header />
             </div>
-            {children}
+            <ReduxProvider>
+              <Toaster position="top-center" richColors expand={true} />
+              {children}
+            </ReduxProvider>
           </div>
         </div>
       </body>
