@@ -6,11 +6,13 @@ import { useSearch } from "@/context/SearchContext";
 import { useSort } from "@/context/SortContext";
 import { useState } from "react";
 import { ModeToggle } from "../theme/ModeToggle";
+import { useTheme } from "next-themes";
 
 function Header() {
   const { searchQuery, setSearchQuery } = useSearch();
   const { setSortType } = useSort();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const { theme } = useTheme(); // Get the current theme
 
   const toggleDropdown = () => {
     setIsDropdownVisible((prev: any) => !prev);
@@ -40,7 +42,7 @@ function Header() {
           placeholder="Search"
         />
         <div className="absolute top-[0.6rem] left-4 cursor-pointer">
-          <Search color="black" />
+          <Search color={theme === "dark" ? "black" : "#868686"} />
         </div>
       </div>
       <div className="hidden xl:flex font-semibold text-[1.13rem] leading-[1.32rem] items-center gap-4">
@@ -67,13 +69,13 @@ function Header() {
                 Sort Alphabetically
               </li>
               <li
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700  cursor-pointer text-base"
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-base"
                 onClick={() => handleOptionClick("creationDate")}
               >
                 Sort by Creation Date
               </li>
               <li
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700  cursor-pointer text-base"
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-base"
                 onClick={() => handleOptionClick("lastUpdated")}
               >
                 Sort by Last Updated

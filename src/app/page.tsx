@@ -95,7 +95,7 @@ export default function Home() {
         </div>
       </div>
       <section className="mt-10">
-        <h5 className="font-bold text-[1.5rem] leading-[1.76rem] mb-6">
+        <h5 className="font-bold sm:text-[1.5rem] sm:text-left text-center text-lg sm:leading-[1.76rem] mb-6">
           My Notes
         </h5>
         <DateNav />

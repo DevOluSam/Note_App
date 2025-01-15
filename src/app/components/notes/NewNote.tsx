@@ -107,7 +107,7 @@ export function NewNote() {
             </div>
             <div className="grid h-[25rem] items-center">
               <Textarea
-                className="border-0 outline-none focus:outline-none h-full font-medium text-[#171717] leading-[1.25rem] dark:text-white"
+                className="border-0 dark:outline-white focus:outline-none h-full font-medium text-[#171717] leading-[1.25rem] dark:text-white"
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
               />
