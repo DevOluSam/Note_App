@@ -100,7 +100,7 @@ export function NewNote() {
             <div className="grid items-center gap-4 border-b pb-4">
               <input
                 placeholder="Enter Note Title"
-                className="w-full border-0 shadow-none outline-none font-raleway font-bold text-[1.5rem] leading-[1.76rem] px-1 dark:text-white dark:bg-black"
+                className="w-full border-0 shadow-none outline-black dark:outline-white p-3  font-raleway font-bold text-[1.5rem] leading-[1.76rem]  dark:text-white dark:bg-black"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />

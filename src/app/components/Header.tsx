@@ -32,7 +32,7 @@ function Header() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           type="text"
-          className="w-full h-full rounded-[5px] outline-none py-[10px] bg-[#f4f4f4] pl-12 dark:text-black"
+          className="w-full h-full rounded-[5px] outline-black py-[10px] bg-[#f4f4f4] pl-12 dark:text-black"
           placeholder="Search"
         />
         <div className="absolute top-[0.6rem] left-4 cursor-pointer">

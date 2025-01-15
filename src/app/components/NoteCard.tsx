@@ -127,12 +127,12 @@ const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
             <>
               <input
                 placeholder="Enter Note Title"
-                className="w-full border-0 shadow-none outline-none font-raleway font-bold text-[1.5rem] leading-[1.76rem] py-4 px-2 dark:text-white  rounded-md"
+                className="w-full border-0 shadow-none outline-black dark:outline-white  font-raleway font-bold text-[1.5rem] leading-[1.76rem] py-4 px-2 dark:text-white  rounded-md"
                 value={editTitle}
                 onChange={(e) => setEditTitle(e.target.value)}
               />
               <textarea
-                className="border-0 outline-none focus:outline-none h-[15rem] font-medium text-[#171717] leading-[1.25rem] p-2 dark:text-white"
+                className="border-0  h-[15rem] font-medium text-[#171717] leading-[1.25rem] rounded-md outline-black dark:outline-white  p-2 dark:text-white"
                 value={editBody}
                 onChange={(e) => setEditBody(e.target.value)}
                 placeholder="Write Something here..."
