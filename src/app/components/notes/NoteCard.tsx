@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ColorRing } from "react-loader-spinner";
 import { useDispatch } from "react-redux";
-import { deleteNote, updateNote, deleteAllNotes } from "@/redux/store";
+import { deleteNote, updateNote } from "@/redux/store";
 import { toast } from "sonner";
 import Modal from "./Modal";
 import DropDown from "./DropDown";
@@ -22,7 +22,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
- 
+
   const [editTitle, setEditTitle] = useState(title);
   const [editBody, setEditBody] = useState(body);
   const dispatch = useDispatch();
@@ -63,8 +63,6 @@ const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
       setIsLoading(false);
     }, 3000);
   };
-
- 
 
   return (
     <>
@@ -157,25 +155,26 @@ const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
           }
         />
         <Modal
+          contentClassName="bg-red-50 text-red-600"
           isOpen={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
-          title="Delete Note"
+          title="Clear Notes"
           body={
-            <p className="mt-2 text-sm text-gray-500">
-              Are you sure you want to delete this note? This action cannot be
-              undone.
+            <p className="mt-2 text-sm text-red-600">
+              Are you sure you want to clear all your notes? This action cannot
+              be undone.
             </p>
           }
           footer={
             <>
               <Button
-                className="bg-gray-300 text-black"
+                className="bg-sky-600 text-white hover:bg-sky-600/70"
                 onClick={() => setIsDeleteModalOpen(false)}
               >
                 Cancel
               </Button>
               <Button
-                className="bg-[#FF7F7F] hover:bg-white hover:text-[#FF7F7F] hover:border hover:border-[#FF7F7F] duration-300 transition-all ease-in-out text-white"
+                className="hover:bg-[#FF7F7F]/80 bg-red-600  duration-300 transition-all ease-in-out text-white"
                 onClick={handleDelete}
               >
                 Delete
@@ -183,7 +182,6 @@ const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
             </>
           }
         />
-        
       </div>
     </>
   );

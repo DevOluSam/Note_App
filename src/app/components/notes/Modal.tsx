@@ -1,6 +1,5 @@
 import React from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 
 interface ModalProps {
   isOpen: boolean;
@@ -8,11 +7,19 @@ interface ModalProps {
   title: string;
   body: React.ReactNode;
   footer: React.ReactNode;
+  contentClassName?: string; // Optional prop for DialogContent styling
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, body, footer }) => (
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  title,
+  body,
+  footer,
+  contentClassName, // Destructure the new prop
+}) => (
   <Dialog open={isOpen} onOpenChange={onClose}>
-    <DialogContent className="sm:max-w-[425px] font-raleway">
+    <DialogContent className={`sm:max-w-[425px] font-raleway ${contentClassName || ""}`}>
       <DialogHeader>
         <DialogTitle>{title}</DialogTitle>
       </DialogHeader>

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Raleway } from "next/font/google";
 import "./globals.css";
-import Sidebar from "./components/Sidebar";
-import Header from "./components/Header";
-import ReduxProvider from "./ReduxProvider";
+import Sidebar from "./components/layouts/Sidebar";
+import Header from "./components/layouts/Header";
+import ReduxProvider from "../redux/ReduxProvider";
 import { Toaster } from "sonner";
 import { SearchProvider } from "@/context/SearchContext";
 import { SortProvider } from "@/context/SortContext";
-import { ThemeProvider } from "./components/theme-provider";
+import { ThemeProvider } from "./components/theme/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,30 +38,30 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${raleway.variable} antialiased`}
       >
-         <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-        <div className="flex px-2">
-          <div className="hidden lg:block">
-            <Sidebar />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="flex px-2">
+            <div className="hidden lg:block">
+              <Sidebar />
+            </div>
+            <div className="w-full">
+              <SearchProvider>
+                <SortProvider>
+                  <div className="sticky top-0 z-20">
+                    <Header />
+                  </div>
+                  <ReduxProvider>
+                    <Toaster position="top-center" richColors expand={true} />
+                    {children}
+                  </ReduxProvider>
+                </SortProvider>
+              </SearchProvider>
+            </div>
           </div>
-          <div className="w-full">
-            <SearchProvider>
-              <SortProvider>
-                <div className="sticky top-0 z-20">
-                  <Header />
-                </div>
-                <ReduxProvider>
-                  <Toaster position="top-center" richColors expand={true} />
-                  {children}
-                </ReduxProvider>
-              </SortProvider>
-            </SearchProvider>
-          </div>
-        </div>
         </ThemeProvider>
       </body>
     </html>

@@ -18,8 +18,8 @@ import { ColorRing } from "react-loader-spinner";
 export function NewNote() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [isLoading, setIsLoading] = useState(false); 
-  const [open, setOpen] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
   const handleSaveNote = () => {
@@ -28,14 +28,14 @@ export function NewNote() {
       return;
     }
 
-    setIsLoading(true); 
-    setOpen(false); 
+    setIsLoading(true);
+    setOpen(false);
     setTimeout(() => {
       dispatch(addNote({ title, body }));
       setTitle("");
       setBody("");
       toast.success("New note has been added");
-      setIsLoading(false); 
+      setIsLoading(false);
       setOpen(false);
     }, 3000);
   };

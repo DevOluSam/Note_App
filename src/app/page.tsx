@@ -1,15 +1,15 @@
 "use client";
-import AddCard from "./components/AddCard";
-import DateNav from "./components/DateNav";
-import { NewNote } from "./components/NewNote";
-import NoteCard from "./components/NoteCard";
+import AddCard from "./components/notes/AddCard";
+import DateNav from "./components/nav/DateNav";
+import { NewNote } from "./components/notes/NewNote";
+import NoteCard from "./components/notes/NoteCard";
 import ProductReviewCard from "./components/ProductReviewCard";
 import { useSelector } from "react-redux";
 import { useSearch } from "@/context/SearchContext";
 import { useSort } from "@/context/SortContext";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import ConfirmDeleteAllNotesDialog from "./components/DeleteAll";
+import ConfirmDeleteAllNotesDialog from "./components/notes/DeleteAll";
 
 interface Note {
   id: string;

@@ -5,7 +5,7 @@ import { Search } from "lucide-react";
 import { useSearch } from "@/context/SearchContext";
 import { useSort } from "@/context/SortContext";
 import { useState } from "react";
-import { ModeToggle } from "./ModeToggle";
+import { ModeToggle } from "../theme/ModeToggle";
 
 function Header() {
   const { searchQuery, setSearchQuery } = useSearch();
@@ -16,16 +16,20 @@ function Header() {
     setIsDropdownVisible((prev: any) => !prev);
   };
 
-  const handleOptionClick = (type: "alphabetical" | "creationDate" | "lastUpdated") => {
-    setSortType(type); 
-    setIsDropdownVisible(false); 
+  const handleOptionClick = (
+    type: "alphabetical" | "creationDate" | "lastUpdated"
+  ) => {
+    setSortType(type);
+    setIsDropdownVisible(false);
   };
 
   return (
     <header className="flex gap-6 flex-col sm:flex-row md:gap-0 justify-between px-4 lg:px-8 font-raleway items-center rounded-md text-[#5f5f5f] bg-white py-6 dark:bg-black dark:text-white">
       <div className="flex gap-4 items-center">
-      <ModeToggle />
-      <h1 className="sm:text-[2rem] text-xl font-bold sm:leading-[2.35rem]">My Notes</h1>
+        <ModeToggle />
+        <h1 className="sm:text-[2rem] text-xl font-bold sm:leading-[2.35rem]">
+          My Notes
+        </h1>
       </div>
       <div className="w-[16.44rem] h-[2.69rem] relative">
         <input
