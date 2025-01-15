@@ -142,13 +142,13 @@ const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
           footer={
             <>
               <Button
-                className="bg-gray-300 text-black mr-2 dark:hover:bg-sky-700 dark:hover:text-gray-50"
+                className="bg-gray-300 text-black mr-2 hover:bg-sky-700 hover:text-gray-50"
                 onClick={() => setIsEditModalOpen(false)}
               >
                 Cancel
               </Button>
               <Button
-                className="bg-[#FF7F7F] text-white dark:hover:text-red-700"
+                className="hover:bg-[#FF7F7F] hover:text-white text-red-700 bg-red-50"
                 onClick={handleSaveChanges}
               >
                 Save Changes

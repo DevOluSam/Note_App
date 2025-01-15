@@ -124,9 +124,9 @@ export default function Home() {
             {notes.length > 1 && (
               <Button
                 onClick={handleOpenDeleteAllDialog}
-                className="bg-[#FF7F7F] text-white hover:text-red-600 hover:bg-gray-200 mt-20 dark:hover:text-red-700 dark:hover:bg-red-200"
+                className="hover:bg-[#FF7F7F] hover:text-white text-red-600 bg-red-50 mt-20 dark:hover:text-red-700 dark:hover:bg-red-200"
               >
-                Delete All Notes
+                Clear Notes
               </Button>
             )}
 

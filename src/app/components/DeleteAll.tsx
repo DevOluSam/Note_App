@@ -47,11 +47,11 @@ const ConfirmDeleteAllNotesDialog: React.FC<{
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent className="sm:max-w-[425px] font-raleway bg-red-50 text-red-600">
           <DialogHeader>
-            <DialogTitle>Delete All Notes</DialogTitle>
+            <DialogTitle>Clear All Notes</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 text-[#5F5F5F] font-semibold">
             <p className="mt-2 text-sm text-red-600">
-              Are you sure you want to delete all your notes? This action cannot be
+              Are you sure you want to clear all your notes? This action cannot be
               undone.
             </p>
           </div>
@@ -63,7 +63,7 @@ const ConfirmDeleteAllNotesDialog: React.FC<{
               className="bg-[#FF7F7F] hover:bg-white hover:text-[#FF7F7F]  duration-300 transition-all ease-in-out text-white"
               onClick={handleDeleteAll}
             >
-              Delete All
+              Proceed
             </Button>
           </div>
         </DialogContent>
