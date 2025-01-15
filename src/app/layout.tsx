@@ -5,6 +5,8 @@ import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import ReduxProvider from "./ReduxProvider";
 import { Toaster } from "sonner";
+import { SearchProvider } from "@/context/SearchContext";
+import { SortProvider } from "@/context/SortContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,13 +42,17 @@ export default function RootLayout({
             <Sidebar />
           </div>
           <div className="w-full">
-            <div className="sticky top-0 z-20">
-              <Header />
-            </div>
-            <ReduxProvider>
-              <Toaster position="top-center" richColors expand={true} />
-              {children}
-            </ReduxProvider>
+            <SearchProvider>
+              <SortProvider>
+                <div className="sticky top-0 z-20">
+                  <Header />
+                </div>
+                <ReduxProvider>
+                  <Toaster position="top-center" richColors expand={true} />
+                  {children}
+                </ReduxProvider>
+              </SortProvider>
+            </SearchProvider>
           </div>
         </div>
       </body>

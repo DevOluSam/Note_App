@@ -5,6 +5,9 @@ import { NewNote } from "./components/NewNote";
 import NoteCard from "./components/NoteCard";
 import ProductReviewCard from "./components/ProductReviewCard";
 import { useSelector, useDispatch } from "react-redux";
+import { useSearch } from "@/context/SearchContext";
+import { useSort } from "@/context/SortContext";
+
 
 interface Note {
   id: string;
@@ -20,6 +23,24 @@ interface RootState {
 
 export default function Home() {
   const notes = useSelector((state: RootState) => state.notes);
+  const { searchQuery } = useSearch();
+  const filteredNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  const { sortType } = useSort();
+
+  const sortedNotes = [...notes].sort((a, b) => {
+    switch (sortType) {
+      case "alphabetical":
+        return a.title.localeCompare(b.title);
+      case "creationDate":
+        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+      case "lastUpdated":
+        return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+      default:
+        return 0;
+    }
+  });
   const dispatch = useDispatch();
   return (
     <aside className="py-8 text-[#5f5f5f] font-raleway bg-[#fafafa] h-full mt-4 px-2 md:px-8 rounded-tl-[25px] z-10 w-full">
@@ -60,17 +81,35 @@ export default function Home() {
           My Notes
         </h5>
         <DateNav />
-        <div className="flex flex-wrap gap-4 justify-center sm:justify-start items-center mt-6">
-          {notes.map((item) => (
+        <div className="flex flex-wrap gap-4 justify-center sm:justify-start items-center mt-6 group">
+          {/* {filteredNotes
+            ? filteredNotes.map((item) => (
+                <NoteCard
+                  key={item.id}
+                  title={item.title}
+                  body={item.body}
+                  date={item.createdAt}
+                  id={item.id}
+                />
+              ))
+            : notes.map((item) => (
+                <NoteCard
+                  key={item.id}
+                  title={item.title}
+                  body={item.body}
+                  date={item.createdAt}
+                  id={item.id}
+                />
+              ))} */}
+          {sortedNotes.map((item) => (
             <NoteCard
-              key={item.id}
-              title={item.title}
-              body={item.body}
-              date={item.createdAt}
-              id={item.id}
-            />
+            key={item.id}
+            title={item.title}
+            body={item.body}
+            date={item.createdAt}
+            id={item.id}
+          />
           ))}
-
           <div className="mt-4">
             <NewNote />
           </div>
