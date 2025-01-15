@@ -61,7 +61,7 @@ export default function Home() {
   };
 
   return (
-    <aside className="py-8 text-[#5f5f5f] font-raleway bg-[#fafafa] h-full mt-4 px-2 md:px-6 rounded-tl-[25px] z-10 w-full dark:bg-black dark:text-white">
+    <aside className="py-8 text-[#5f5f5f] font-raleway bg-[#fafafa] h-full mt-4 px-2 md:px-9 rounded-tl-[25px] z-10 w-full dark:bg-black dark:text-white">
       <h5 className="font-bold sm:text-[1.5rem] sm:text-left text-center text-lg sm:leading-[1.76rem] mb-6">
         Recent Folder
       </h5>

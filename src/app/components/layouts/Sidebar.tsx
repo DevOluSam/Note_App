@@ -6,7 +6,7 @@ const Sidebar = () => {
   return (
     <SidebarProvider className="font-raleway border-none">
       <AppSidebar />
-      <div className="pt-8 px-4">
+      <div className="pt-8 pl-2">
         <SidebarTrigger />
       </div>
     </SidebarProvider>
