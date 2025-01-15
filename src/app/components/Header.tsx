@@ -15,15 +15,14 @@ function Header() {
     setIsDropdownVisible((prev: any) => !prev);
   };
 
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortType(
-      e.target.value as "alphabetical" | "creationDate" | "lastUpdated"
-    );
-    setIsDropdownVisible(false)
+  const handleOptionClick = (type: "alphabetical" | "creationDate" | "lastUpdated") => {
+    setSortType(type); 
+    setIsDropdownVisible(false); 
   };
+
   return (
     <header className="flex gap-6 flex-col sm:flex-row md:gap-0 justify-between px-4 lg:px-8 font-raleway items-center text-[#5f5f5f] bg-white py-6">
-      <h1 className="text-[2rem] font-bold leading-[2.35rem] ">My Notes</h1>
+      <h1 className="text-[2rem] font-bold leading-[2.35rem]">My Notes</h1>
       <div className="w-[16.44rem] h-[2.69rem] relative">
         <input
           value={searchQuery}
@@ -51,34 +50,32 @@ function Header() {
           onClick={toggleDropdown}
         />
         {isDropdownVisible && (
-            <div className="absolute font-raleway top-20 right-0 mt-2 w-[200px] bg-white shadow-lg rounded-md z-50 text-center">
-              <ul>
-                <li
-                  className="p-2 hover:bg-gray-100 cursor-pointer text-base"
-                  onClick={() => setSortType("alphabetical")}
-                >
-                  Sort Alphabetically
-                </li>
-                <li
-                  className="p-2 hover:bg-gray-100 cursor-pointer text-base"
-                  onClick={() => setSortType("creationDate")}
-                >
-                  Sort by Creation Date
-                </li>
-                <li
-                  className="p-2 hover:bg-gray-100 cursor-pointer text-base"
-                  onClick={() => setSortType("lastUpdated")}
-                >
-                  Sort by Last Updated
-                </li>
-              </ul>
-            </div>
-          )}
+          <div className="absolute font-raleway top-20 right-0 mt-2 w-[200px] bg-white shadow-lg rounded-md z-50 text-center">
+            <ul>
+              <li
+                className="p-2 hover:bg-gray-100 cursor-pointer text-base"
+                onClick={() => handleOptionClick("alphabetical")}
+              >
+                Sort Alphabetically
+              </li>
+              <li
+                className="p-2 hover:bg-gray-100 cursor-pointer text-base"
+                onClick={() => handleOptionClick("creationDate")}
+              >
+                Sort by Creation Date
+              </li>
+              <li
+                className="p-2 hover:bg-gray-100 cursor-pointer text-base"
+                onClick={() => handleOptionClick("lastUpdated")}
+              >
+                Sort by Last Updated
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </header>
   );
 }
 
 export default Header;
-
-

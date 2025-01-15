@@ -54,10 +54,13 @@ const notesSlice = createSlice({
       const id = action.payload;
       return state.filter((note) => note.id !== id);
     },
+    deleteAllNotes: (state) => {
+      return []; 
+    },
   },
 });
 
-export const { addNote, updateNote, deleteNote } = notesSlice.actions;
+export const { addNote, updateNote, deleteNote, deleteAllNotes } = notesSlice.actions;
 
 const persistConfig = {
   key: "root",

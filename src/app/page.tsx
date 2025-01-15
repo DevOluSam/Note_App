@@ -29,7 +29,7 @@ export default function Home() {
   );
   const { sortType } = useSort();
 
-  const sortedNotes = [...notes].sort((a, b) => {
+  const sortedNotes = [...(searchQuery ? filteredNotes : notes)].sort((a, b) => {
     switch (sortType) {
       case "alphabetical":
         return a.title.localeCompare(b.title);
@@ -82,8 +82,8 @@ export default function Home() {
         </h5>
         <DateNav />
         <div className="flex flex-wrap gap-4 justify-center sm:justify-start items-center mt-6 group">
-          {/* {filteredNotes
-            ? filteredNotes.map((item) => (
+          {sortedNotes
+            ? sortedNotes.map((item) => (
                 <NoteCard
                   key={item.id}
                   title={item.title}
@@ -100,16 +100,7 @@ export default function Home() {
                   date={item.createdAt}
                   id={item.id}
                 />
-              ))} */}
-          {sortedNotes.map((item) => (
-            <NoteCard
-            key={item.id}
-            title={item.title}
-            body={item.body}
-            date={item.createdAt}
-            id={item.id}
-          />
-          ))}
+              ))}
           <div className="mt-4">
             <NewNote />
           </div>

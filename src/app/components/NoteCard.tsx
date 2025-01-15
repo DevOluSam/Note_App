@@ -2,19 +2,13 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { useDispatch } from "react-redux";
-import { deleteNote, updateNote } from "@/redux/store";
-import { toast } from "sonner";
 import { ColorRing } from "react-loader-spinner";
-
+import { useDispatch } from "react-redux";
+import { deleteNote, updateNote, deleteAllNotes } from "@/redux/store";
+import { toast } from "sonner";
+import Modal from "./Modal";
+import DropDown from "./DropDown";
 
 interface NoteCardProps {
   title: string;
@@ -24,10 +18,11 @@ interface NoteCardProps {
 }
 
 const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
-  const [open, setOpen] = useState(false); // Controls dropdown menu
+  const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Controls edit modal
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // Controls delete modal
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDeleteAllModalOpen, setIsDeleteAllModalOpen] = useState(false);
   const [editTitle, setEditTitle] = useState(title);
   const [editBody, setEditBody] = useState(body);
   const dispatch = useDispatch();
@@ -46,9 +41,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
     };
 
     document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
 
   const handleSaveChanges = () => {
@@ -57,20 +50,28 @@ const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
     setTimeout(() => {
       dispatch(updateNote({ title: editTitle, body: editBody, id }));
       toast.success("Note has been updated successfully");
-      setIsLoading(false); 
-
+      setIsLoading(false);
     }, 3000);
   };
 
   const handleDelete = () => {
     setIsLoading(true);
     setIsDeleteModalOpen(false);
-    setTimeout(() => {  
-    dispatch(deleteNote(id));
-    toast.success("Note has been deleted");
-    setIsLoading(false);
-    }, 3000)
-    
+    setTimeout(() => {
+      dispatch(deleteNote(id));
+      toast.success("Note has been deleted");
+      setIsLoading(false);
+    }, 3000);
+  };
+
+  const handleDeleteAll = () => {
+    setIsLoading(true);
+    setIsDeleteAllModalOpen(false);
+    setTimeout(() => {
+      dispatch(deleteAllNotes());
+      toast.success("All Notes have been deleted");
+      setIsLoading(false);
+    }, 3000);
   };
 
   return (
@@ -82,8 +83,6 @@ const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
             height="80"
             width="80"
             ariaLabel="color-ring-loading"
-            wrapperStyle={{}}
-            wrapperClass="color-ring-wrapper"
             colors={["#D5768A", "#A9A2D8", "#B0AC57", "#abbd81", "#849b87"]}
           />
         </div>
@@ -127,28 +126,29 @@ const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
           value={body}
           disabled
         ></textarea>
-
-        {/* Edit Modal */}
-        <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-          <DialogContent className="sm:max-w-[425px] font-raleway">
-            <DialogHeader>
-              <DialogTitle>Edit Note</DialogTitle>
-            </DialogHeader>
-            <div className="grid gap-4 text-[#5F5F5F]">
+        {/* Modals */}
+        <Modal
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          title="Edit Note"
+          body={
+            <>
               <input
                 placeholder="Enter Note Title"
                 className="w-full border-0 shadow-none outline-none font-raleway font-bold text-[1.5rem] leading-[1.76rem] px-1"
                 value={editTitle}
                 onChange={(e) => setEditTitle(e.target.value)}
               />
-              <Textarea
+              <textarea
                 className="border-0 outline-none focus:outline-none h-[15rem] font-medium text-[#171717] leading-[1.25rem]"
                 value={editBody}
                 onChange={(e) => setEditBody(e.target.value)}
                 placeholder="Write Something here..."
               />
-            </div>
-            <div className="mt-4 flex justify-end">
+            </>
+          }
+          footer={
+            <>
               <Button
                 className="bg-gray-300 text-black mr-2"
                 onClick={() => setIsEditModalOpen(false)}
@@ -161,23 +161,21 @@ const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
               >
                 Save Changes
               </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
-
-        {/* Delete Modal */}
-        <Dialog open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen}>
-          <DialogContent className="sm:max-w-[425px] font-raleway">
-            <DialogHeader>
-              <DialogTitle>Delete Note</DialogTitle>
-            </DialogHeader>
-            <div className="grid gap-4 text-[#5F5F5F] font-semibold">
-              <p className="mt-2 text-sm text-gray-500">
-                Are you sure you want to delete this note? This action cannot be
-                undone.
-              </p>
-            </div>
-            <div className="mt-4 flex justify-end gap-2">
+            </>
+          }
+        />
+        <Modal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          title="Delete Note"
+          body={
+            <p className="mt-2 text-sm text-gray-500">
+              Are you sure you want to delete this note? This action cannot be
+              undone.
+            </p>
+          }
+          footer={
+            <>
               <Button
                 className="bg-gray-300 text-black"
                 onClick={() => setIsDeleteModalOpen(false)}
@@ -190,73 +188,39 @@ const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
               >
                 Delete
               </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+            </>
+          }
+        />
+        <Modal
+          isOpen={isDeleteAllModalOpen}
+          onClose={() => setIsDeleteAllModalOpen(false)}
+          title="Delete All Notes"
+          body={
+            <p className="mt-2 text-sm text-gray-500">
+              Are you sure you want to delete all your notes? This action cannot
+              be undone.
+            </p>
+          }
+          footer={
+            <>
+              <Button
+                className="bg-gray-300 text-black"
+                onClick={() => setIsDeleteAllModalOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                className="bg-[#FF7F7F] hover:bg-white hover:text-[#FF7F7F] hover:border hover:border-[#FF7F7F] duration-300 transition-all ease-in-out text-white"
+                onClick={handleDelete}
+              >
+                Proceed
+              </Button>
+            </>
+          }
+        />
       </div>
     </>
   );
 };
 
 export default NoteCard;
-
-interface DropDownProps {
-  onEdit: () => void;
-  onDelete: () => void;
-}
-
-const DropDown: React.FC<DropDownProps> = ({ onEdit, onDelete }) => {
-  return (
-    <div className="relative font-raleway">
-      <div
-        className="absolute end-0 z-10 mt-2 w-56 rounded-md border border-gray-100 bg-white shadow-lg"
-        role="menu"
-      >
-        <div className="p-2">
-          <button
-            type="button"
-            className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50"
-            onClick={onEdit}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="size-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-              />
-            </svg>
-            Edit Note
-          </button>
-          <button
-            type="submit"
-            className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50"
-            onClick={onDelete}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="size-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              />
-            </svg>
-            Delete Note
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
