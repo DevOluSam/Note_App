@@ -16,8 +16,8 @@ const ProductReviewCard: React.FC<ProductReviewCardProps> = ({ color, name, date
         <Image src='/images/more_icon.svg' alt='dropdown icon' width={24} height={24} />
      </div>
       <div >
-      <h3 className='font-bold text-[1.25rem] leading-[1.49rem] text-[#4C4B4B] mb-2'>{name}</h3>
-      <p className='text-[#7A7A7A] font-semibold text-[0.88rem] leading-[1.03rem] '>{date}</p>
+      <h3 className='font-bold sm:text-[1.25rem] text-lg sm:leading-[1.49rem] text-[#4C4B4B] mb-2'>{name}</h3>
+      <p className='text-[#7A7A7A] font-semibold  text-[0.88rem] leading-[1.03rem] '>{date}</p>
       </div>
     </div>
   )

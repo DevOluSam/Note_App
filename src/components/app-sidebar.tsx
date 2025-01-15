@@ -41,7 +41,7 @@ const items = [
 export function AppSidebar() {
   return (
     <Sidebar className="">
-      <SidebarContent className="bg-white py-8 px-4">
+      <SidebarContent className="bg-white py-8 px-4 dark:bg-black dark:text-white">
         <SidebarGroup>
           <SidebarGroupLabel>
             <Image
@@ -67,8 +67,9 @@ export function AppSidebar() {
                         alt={item.title}
                         width={24}
                         height={24}
+                        className="dark:bg-gray-700"
                       />
-                      <span>{item.title}</span>
+                      <span className="dark:text-white">{item.title}</span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -76,7 +77,7 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarGroupContent className="font-medium text-[0.5rem] leading-[0.65rem] text-[#767676] mt-28 text-center">
+        <SidebarGroupContent className="font-medium text-[0.5rem] leading-[0.65rem] text-[#767676] mt-28 text-center dark:text-white">
           <p>&copy; 2024 Estrada International Staffing Solutions.</p> 
           <p>All Rights Reserved.</p>
         </SidebarGroupContent>

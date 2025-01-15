@@ -4,7 +4,7 @@ import DateNav from "./components/DateNav";
 import { NewNote } from "./components/NewNote";
 import NoteCard from "./components/NoteCard";
 import ProductReviewCard from "./components/ProductReviewCard";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useSearch } from "@/context/SearchContext";
 import { useSort } from "@/context/SortContext";
 import { Button } from "@/components/ui/button";
@@ -52,16 +52,6 @@ export default function Home() {
     }
   );
 
-  // const handleDeleteAll = () => {
-  //   setIsLoading(true);
-  //   setIsDeleteAllModalOpen(false);
-  //   setTimeout(() => {
-  //     dispatch(deleteAllNotes());
-  //     toast.success("All Notes have been deleted");
-  //     setIsLoading(false);
-  //   }, 3000);
-  // };
-
   const handleOpenDeleteAllDialog = () => {
     setIsDeleteAllDialogOpen(true);
   };
@@ -69,10 +59,10 @@ export default function Home() {
   const handleCloseDeleteAllDialog = () => {
     setIsDeleteAllDialogOpen(false);
   };
-  const dispatch = useDispatch();
+
   return (
-    <aside className="py-8 text-[#5f5f5f] font-raleway bg-[#fafafa] h-full mt-4 px-2 md:px-8 rounded-tl-[25px] z-10 w-full">
-      <h5 className="font-bold text-[1.5rem] leading-[1.76rem] mb-6">
+    <aside className="py-8 text-[#5f5f5f] font-raleway bg-[#fafafa] h-full mt-4 px-2 md:px-8 rounded-tl-[25px] z-10 w-full dark:bg-black dark:text-white">
+      <h5 className="font-bold sm:text-[1.5rem] sm:text-left text-center text-lg sm:leading-[1.76rem] mb-6">
         Recent Folder
       </h5>
       <DateNav />
@@ -133,11 +123,11 @@ export default function Home() {
             <NewNote />
             {notes.length > 1 && (
               <Button
-              onClick={handleOpenDeleteAllDialog}
-              className="bg-[#FF7F7F] text-white mt-20"
-            >
-              Delete All Notes
-            </Button>
+                onClick={handleOpenDeleteAllDialog}
+                className="bg-[#FF7F7F] text-white hover:text-red-600 hover:bg-gray-200 mt-20 dark:hover:text-red-700 dark:hover:bg-red-200"
+              >
+                Delete All Notes
+              </Button>
             )}
 
             <ConfirmDeleteAllNotesDialog

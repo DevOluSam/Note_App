@@ -58,7 +58,7 @@ export function NewNote() {
 
       <Dialog open={open} onOpenChange={(state) => setOpen(state)}>
         <DialogTrigger asChild className="mt-8 text-[#5f5f5f]">
-          <Button className="bg-[#fafafa] shadow-none hover:bg-[#fafafa]">
+          <Button className="bg-[#fafafa] dark:bg-black  shadow-none hover:bg-[#fafafa]">
             <AddCard
               image="/images/add_note_icon.svg"
               title="New Note"
@@ -67,7 +67,7 @@ export function NewNote() {
             />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] font-raleway">
+        <DialogContent className="sm:max-w-[425px] font-raleway dark:bg-black dark:border dark:border-sky-400">
           <DialogHeader>
             <DialogTitle>
               <div className="flex items-center justify-between mt-4">
@@ -77,10 +77,11 @@ export function NewNote() {
                     alt="add icon"
                     width={24}
                     height={24}
+                    className="dark:bg-slate-500"
                   />
                   <Button
                     type="submit"
-                    className="font-semibold text-[1rem] leading-[1.17rem] text-[#5F5F5F] bg-white shadow-none hover:text-white"
+                    className="font-semibold text-[1rem] leading-[1.17rem] text-[#5F5F5F] bg-white shadow-none hover:text-white dark:hover:text-black"
                     onClick={handleSaveNote}
                   >
                     Save note
@@ -99,14 +100,14 @@ export function NewNote() {
             <div className="grid items-center gap-4 border-b pb-4">
               <input
                 placeholder="Enter Note Title"
-                className="w-full border-0 shadow-none outline-none font-raleway font-bold text-[1.5rem] leading-[1.76rem] px-1"
+                className="w-full border-0 shadow-none outline-none font-raleway font-bold text-[1.5rem] leading-[1.76rem] px-1 dark:text-white dark:bg-black"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
             <div className="grid h-[25rem] items-center">
               <Textarea
-                className="border-0 outline-none focus:outline-none h-full font-medium text-[#171717] leading-[1.25rem]"
+                className="border-0 outline-none focus:outline-none h-full font-medium text-[#171717] leading-[1.25rem] dark:text-white"
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
               />

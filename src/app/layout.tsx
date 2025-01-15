@@ -7,6 +7,7 @@ import ReduxProvider from "./ReduxProvider";
 import { Toaster } from "sonner";
 import { SearchProvider } from "@/context/SearchContext";
 import { SortProvider } from "@/context/SortContext";
+import { ThemeProvider } from "./components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${raleway.variable} antialiased`}
       >
+         <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
         <div className="flex px-2">
           <div className="hidden lg:block">
             <Sidebar />
@@ -55,6 +62,7 @@ export default function RootLayout({
             </SearchProvider>
           </div>
         </div>
+        </ThemeProvider>
       </body>
     </html>
   );
