@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ColorRing } from "react-loader-spinner";
@@ -22,7 +22,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isDeleteAllModalOpen, setIsDeleteAllModalOpen] = useState(false);
+ 
   const [editTitle, setEditTitle] = useState(title);
   const [editBody, setEditBody] = useState(body);
   const dispatch = useDispatch();
@@ -64,15 +64,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
     }, 3000);
   };
 
-  const handleDeleteAll = () => {
-    setIsLoading(true);
-    setIsDeleteAllModalOpen(false);
-    setTimeout(() => {
-      dispatch(deleteAllNotes());
-      toast.success("All Notes have been deleted");
-      setIsLoading(false);
-    }, 3000);
-  };
+ 
 
   return (
     <>
@@ -191,33 +183,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ title, date, body, id }) => {
             </>
           }
         />
-        <Modal
-          isOpen={isDeleteAllModalOpen}
-          onClose={() => setIsDeleteAllModalOpen(false)}
-          title="Delete All Notes"
-          body={
-            <p className="mt-2 text-sm text-gray-500">
-              Are you sure you want to delete all your notes? This action cannot
-              be undone.
-            </p>
-          }
-          footer={
-            <>
-              <Button
-                className="bg-gray-300 text-black"
-                onClick={() => setIsDeleteAllModalOpen(false)}
-              >
-                Cancel
-              </Button>
-              <Button
-                className="bg-[#FF7F7F] hover:bg-white hover:text-[#FF7F7F] hover:border hover:border-[#FF7F7F] duration-300 transition-all ease-in-out text-white"
-                onClick={handleDelete}
-              >
-                Proceed
-              </Button>
-            </>
-          }
-        />
+        
       </div>
     </>
   );

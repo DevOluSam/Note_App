@@ -7,7 +7,9 @@ import ProductReviewCard from "./components/ProductReviewCard";
 import { useSelector, useDispatch } from "react-redux";
 import { useSearch } from "@/context/SearchContext";
 import { useSort } from "@/context/SortContext";
-
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import ConfirmDeleteAllNotesDialog from "./components/DeleteAll";
 
 interface Note {
   id: string;
@@ -22,6 +24,8 @@ interface RootState {
 }
 
 export default function Home() {
+  const [isDeleteAllDialogOpen, setIsDeleteAllDialogOpen] = useState(false);
+
   const notes = useSelector((state: RootState) => state.notes);
   const { searchQuery } = useSearch();
   const filteredNotes = notes.filter((note) =>
@@ -29,18 +33,42 @@ export default function Home() {
   );
   const { sortType } = useSort();
 
-  const sortedNotes = [...(searchQuery ? filteredNotes : notes)].sort((a, b) => {
-    switch (sortType) {
-      case "alphabetical":
-        return a.title.localeCompare(b.title);
-      case "creationDate":
-        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-      case "lastUpdated":
-        return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
-      default:
-        return 0;
+  const sortedNotes = [...(searchQuery ? filteredNotes : notes)].sort(
+    (a, b) => {
+      switch (sortType) {
+        case "alphabetical":
+          return a.title.localeCompare(b.title);
+        case "creationDate":
+          return (
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          );
+        case "lastUpdated":
+          return (
+            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+          );
+        default:
+          return 0;
+      }
     }
-  });
+  );
+
+  // const handleDeleteAll = () => {
+  //   setIsLoading(true);
+  //   setIsDeleteAllModalOpen(false);
+  //   setTimeout(() => {
+  //     dispatch(deleteAllNotes());
+  //     toast.success("All Notes have been deleted");
+  //     setIsLoading(false);
+  //   }, 3000);
+  // };
+
+  const handleOpenDeleteAllDialog = () => {
+    setIsDeleteAllDialogOpen(true);
+  };
+
+  const handleCloseDeleteAllDialog = () => {
+    setIsDeleteAllDialogOpen(false);
+  };
   const dispatch = useDispatch();
   return (
     <aside className="py-8 text-[#5f5f5f] font-raleway bg-[#fafafa] h-full mt-4 px-2 md:px-8 rounded-tl-[25px] z-10 w-full">
@@ -101,8 +129,21 @@ export default function Home() {
                   id={item.id}
                 />
               ))}
-          <div className="mt-4">
+          <div className="mt-4 flex flex-col ">
             <NewNote />
+            {notes.length > 1 && (
+              <Button
+              onClick={handleOpenDeleteAllDialog}
+              className="bg-[#FF7F7F] text-white mt-20"
+            >
+              Delete All Notes
+            </Button>
+            )}
+
+            <ConfirmDeleteAllNotesDialog
+              isOpen={isDeleteAllDialogOpen}
+              onClose={handleCloseDeleteAllDialog}
+            />
           </div>
         </div>
       </section>

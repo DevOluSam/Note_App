@@ -1,3 +1,4 @@
+
 import {
   Sidebar,
   SidebarContent,
@@ -26,13 +27,13 @@ const items = [
   {
     title: "Archive",
     url: "#",
-
+    
     path: "/images/archive_icon.svg",
   },
   {
     title: "Trash",
     url: "#",
-
+  
     path: "/images/trash_icon.svg",
   },
 ];
@@ -76,7 +77,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroupContent className="font-medium text-[0.5rem] leading-[0.65rem] text-[#767676] mt-28 text-center">
-          <p>&copy; 2024 Estrada International Staffing Solutions.</p>
+          <p>&copy; 2024 Estrada International Staffing Solutions.</p> 
           <p>All Rights Reserved.</p>
         </SidebarGroupContent>
       </SidebarContent>
